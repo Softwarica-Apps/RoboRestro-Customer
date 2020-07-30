@@ -3,6 +3,10 @@ import QrReader from "react-qr-reader";
 
 const ScanQR = () => {
   const [qrValue, setQrValue] = useState(" ");
+  const previewStyle = {
+    height: "100%",
+    width: "100%",
+  };
 
   const handleScan = (data) => {
     if (data) {
@@ -22,9 +26,8 @@ const ScanQR = () => {
         delay={300}
         onError={handleError}
         onScan={handleScan}
-        style={{ width: "100%" }}
+        style={previewStyle}
       />
-      <p>{qrValue}</p>
     </div>
   );
 };
