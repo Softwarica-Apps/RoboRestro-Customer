@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, Button } from "reactstrap";
 import Header from "../images/header.jpg";
 import Logo from "../images/logo.png";
+import ScanQR from "./ScanQR";
 
 const Home = () => {
+  const [scanning, setScanning] = useState(false);
+
+  const handleButton = () => {
+    setScanning(true);
+  };
+
   return (
     <div className="page-header clear-filter" filter-color="blue">
       <div
@@ -16,9 +23,17 @@ const Home = () => {
         <div className="content-center brand">
           <img alt="..." className="n-logo" src={Logo} />
           <p className="h3">Welcome to ROBORESTRO</p>
-          <Button className="btn-round btn-scan-qr mt-5" size="lg">
-            SCAN QR CODE
-          </Button>
+          {scanning ? (
+            <ScanQR />
+          ) : (
+            <Button
+              className="btn-round btn-scan-qr mt-5"
+              size="lg"
+              onClick={handleButton}
+            >
+              SCAN QR CODE
+            </Button>
+          )}
         </div>
       </Container>
     </div>
