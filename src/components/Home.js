@@ -12,11 +12,13 @@ const Home = () => {
           backgroundImage: "url(" + Header + ")",
         }}
       ></div>
-      <Container className="mt-5">
+      <Container className="mt-5 rr-branding">
         <div className="content-center brand">
           <img alt="..." className="n-logo" src={Logo} />
-          <h1 className="h1-seo">roborestro</h1>
-          <Button color="primary">Scan QR</Button>
+          <p className="h3">Welcome to ROBORESTRO</p>
+          <Button className="btn-round btn-scan-qr mt-5" size="lg">
+            SCAN QR CODE
+          </Button>
         </div>
       </Container>
     </div>
