@@ -1,32 +1,32 @@
-import React, { useState } from "react";
-import QrReader from "react-qr-reader";
+import React, { useState } from 'react'
+import QrReader from 'react-qr-reader'
+import { useHistory } from 'react-router-dom'
 
 const ScanQR = () => {
-  const [qrValue, setQrValue] = useState(" ");
+	const [tables, setTables] = useState(['@Table 1', '@Table 2', '@Table 3'])
+	const history = useHistory()
+	const previewStyle = {
+		height: '100%',
+		width: '100%',
+	}
 
-  const handleScan = (data) => {
-    if (data) {
-      setQrValue(data);
-      alert(data);
-    }
-  };
+	const handleScan = (data) => {
+		if (data) {
+			alert(data)
+			tables.includes(data) ? history.push('/menus') : alert('QR code not recognized...')
+		}
+	}
 
-  const handleError = (err) => {
-    console.error(err);
-    alert(err);
-  };
+	const handleError = (err) => {
+		console.error(err)
+		alert(err)
+	}
 
-  return (
-    <div>
-      <QrReader
-        delay={300}
-        onError={handleError}
-        onScan={handleScan}
-        style={{ width: "100%" }}
-      />
-      <p>{qrValue}</p>
-    </div>
-  );
-};
+	return (
+		<div>
+			<QrReader delay={300} onError={handleError} onScan={handleScan} style={previewStyle} />
+		</div>
+	)
+}
 
-export default ScanQR;
+export default ScanQR
