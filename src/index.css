@@ -71,9 +71,33 @@ body {
   font-weight: 500;
 }
 
+@media only screen and (min-width: 320px) {
+  .rr-badge-dark {
+    bottom: 40%;
+  }
+}
+
+@media only screen and (min-width: 360px) {
+  .rr-badge-dark {
+    bottom: 37%;
+  }
+}
+
+@media only screen and (min-width: 410px) {
+  .rr-badge-dark {
+    bottom: 34%;
+  }
+}
+
 @media only screen and (min-width: 600px) {
   .rr-badge-dark {
     bottom: 32%;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .rr-badge-dark {
+    bottom: 30%;
   }
 }
 

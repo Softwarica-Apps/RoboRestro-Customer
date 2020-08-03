@@ -10,9 +10,10 @@ import {
   CardText,
   Badge,
 } from "reactstrap";
+import { useParams } from "react-router-dom";
 
 const CuisineMenu = (props) => {
-  const [cuisine, setCuisine] = useState(props.match.params.cuisine);
+  let { cuisine } = useParams();
   const [cuisineMenu, setCuisineMenu] = useState([]);
 
   const getCuisineMenu = async () => {
@@ -26,9 +27,13 @@ const CuisineMenu = (props) => {
     }
   };
 
+  const goToFoodDetails = (foodId) => {
+    props.history.replace(`/foods/${foodId}`);
+  };
+
   useEffect(() => {
     getCuisineMenu();
-  }, [cuisine]);
+  }, []);
 
   return (
     <Container className="cuisine-menus-wrapper mt-5">
@@ -36,7 +41,7 @@ const CuisineMenu = (props) => {
       <Row>
         {cuisineMenu.map((menu) => (
           <Col xs="6" md="4" key={menu._id}>
-            <Card>
+            <Card onClick={() => goToFoodDetails(menu._id)}>
               <Badge className="rr-badge-dark">NRs: {menu.food_price}</Badge>
               <CardImg
                 alt={menu.food_name}
