@@ -12,7 +12,7 @@ import {
 } from "reactstrap";
 import { useParams } from "react-router-dom";
 
-const CuisineMenu = (props) => {
+const CuisineMenu = ({history}) => {
   let { cuisine } = useParams();
   const [cuisineMenu, setCuisineMenu] = useState([]);
 
@@ -28,7 +28,7 @@ const CuisineMenu = (props) => {
   };
 
   const goToFoodDetails = (foodId) => {
-    props.history.replace(`/foods/${foodId}`);
+    history.replace(`/foods/${foodId}`);
   };
 
   useEffect(() => {
