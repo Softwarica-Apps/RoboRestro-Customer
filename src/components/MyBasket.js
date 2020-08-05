@@ -63,13 +63,37 @@ const MyBasket = () => {
     getTotalPrice();
   };
 
-  const placeOrder = () => {
-    alert("placing order");
+  const placeOrder = async () => {
+    let myOrders = [...orders];
+    try {
+      let result = await axios.post(
+        `${process.env.REACT_APP_BASE_URI}/orders/place-orders`,
+        myOrders
+      );
+      if (result.status === 201) {
+        toast(result.data.message, {
+          position: "bottom-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        setOrders([]);
+      }
+    } catch (error) {
+      console.error("Place Order Error: ", error);
+    }
   };
 
   useEffect(() => {
     getOrders();
-  }, []);
+  }, [totalPrice]);
+
+  useEffect(() => {
+    getTotalPrice();
+  }, [totalPrice]);
 
   return (
     <Container className="my-basket-wrapper mt-5">
@@ -127,10 +151,23 @@ const MyBasket = () => {
           </CardBody>
         </Card>
       ))}
-      <h5 className="text-center">Total: NRs.{totalPrice}</h5>
-      <Button color="success" className="btn-block" onClick={placeOrder}>
-        Place Order
-      </Button>
+
+      {orders.length > 0 ? (
+        <>
+          <h5 className="text-center">Total: NRs.{totalPrice}</h5>
+          <Button color="success" className="btn-block" onClick={placeOrder}>
+            Place Order
+          </Button>
+        </>
+      ) : (
+        <div className="mt-5 mx-auto text-center">
+          <img
+            src={`${process.env.REACT_APP_BASE_URI}/images/empty-basket.png`}
+            alt="Empty basket"
+          />
+          <p className="text-muted">Basket's empty</p>
+        </div>
+      )}
     </Container>
   );
 };
