@@ -12,8 +12,10 @@ import {
   Badge,
   Button,
 } from "reactstrap";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const Food = ({ history }) => {
+const Food = () => {
   let { foodId } = useParams();
   const [food, setFood] = useState({});
 
@@ -36,10 +38,25 @@ const Food = ({ history }) => {
         basket
       );
       if (result.status === 201) {
-        alert(result.data.message);
-        history.replace("/");
+        toast(result.data.message, {
+          position: "bottom-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       } else {
-        alert("Could not add item to basket!");
+        toast.error("Could not add the item to basket", {
+          position: "bottom-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       }
     } catch (error) {
       console.error("Basket Error: ", error);
@@ -55,6 +72,7 @@ const Food = ({ history }) => {
       <h4 className="title text-center">{food.food_name}</h4>
       <Row>
         <Col xs="10" md="8" className="mx-auto" key={food._id}>
+          <ToastContainer className="mb-2" />
           <Card>
             <Badge color="primary">{food.food_category}</Badge>
             <CardImg
@@ -68,9 +86,9 @@ const Food = ({ history }) => {
                 NRs.{food.food_price}
               </span>
               <Button
-                color="info"
+                color="success"
                 size="sm"
-                className="float-right my-auto"
+                className="btn-round float-right my-auto"
                 onClick={addToBasket}
               >
                 Add to Basket

@@ -126,9 +126,45 @@ body {
   right: 2%;
 }
 
+.food-wrapper .btn-sm {
+  font-size: 12px;
+}
+
 @media only screen and (min-width: 320px) {
   .food-wrapper .card .text-primary {
     font-size: 1.1em;
   }
 }
 
+.Toastify__toast--default {
+  margin: 8%;
+}
+
+/* Basket */
+.basket-item .card-body {
+  padding: 0;
+}
+
+.basket-item img {
+  height: 100%;
+}
+
+.basket-item .food-img {
+  padding: 0;
+}
+
+.basket-item .card-text {
+  margin-bottom: 0;
+}
+
+.basket-item .price {
+  font-size: 1em;
+}
+
+.basket-item .quantity {
+  display: inline;
+}
+
+.basket-item .inc {
+  margin-top: 0;
+}
