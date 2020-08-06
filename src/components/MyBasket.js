@@ -12,6 +12,8 @@ import {
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 const MyBasket = () => {
   const [orders, setOrders] = useState([]);
@@ -28,7 +30,7 @@ const MyBasket = () => {
     }
   };
 
-  const getTotalPrice = () => {
+  const getTotalPrice = (orders) => {
     let total = 0;
     orders.forEach((order) => {
       total += order.food_price * order.food_quantity;
@@ -44,7 +46,7 @@ const MyBasket = () => {
           order.food_quantity += 1;
         } else {
           if (order.food_quantity === 1) {
-            toast("Minimum quantity reached!!!", {
+            toast("Minimum quantity reached", {
               position: "bottom-center",
               autoClose: 3000,
               hideProgressBar: false,
@@ -60,7 +62,7 @@ const MyBasket = () => {
       }
     });
     setOrders(myOrders);
-    getTotalPrice();
+    getTotalPrice(myOrders);
   };
 
   const placeOrder = async () => {
@@ -87,13 +89,46 @@ const MyBasket = () => {
     }
   };
 
-  useEffect(() => {
-    getOrders();
-  }, [totalPrice]);
+  const removeFromBasket = async (basketId) => {
+    try {
+      let result = await axios.delete(
+        `${process.env.REACT_APP_BASE_URI}/baskets/removefrombasket/${basketId}`
+      );
+      if (result.status === 201) {
+        toast(result.data.message, {
+          position: "bottom-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        let newOrders = orders.filter((order) => {
+          return order._id !== basketId;
+        });
+        setOrders(newOrders);
+        getTotalPrice(newOrders);
+      }
+    } catch (error) {
+      console.log("Remove Basket Error: ", error);
+    }
+  };
 
   useEffect(() => {
-    getTotalPrice();
-  }, [totalPrice]);
+    getOrders();
+  }, []);
+
+  setTimeout(() => {
+    getTotalPrice(orders)
+  }, 1000);
+
+  // useEffect(() => {
+  //   let myOrders = [...orders];
+  //   console.log("from ooooo",orders)
+  //   console.log("from ooooo",myOrders)
+  //   getTotalPrice(myOrders);
+  // }, []);
 
   return (
     <Container className="my-basket-wrapper mt-5">
@@ -101,6 +136,11 @@ const MyBasket = () => {
       <ToastContainer className="mb-2" />
       {orders.map((order) => (
         <Card className="basket-item" key={order._id}>
+          <FontAwesomeIcon
+            icon={faTimes}
+            className="float-right mt-1 mr-1"
+            onClick={() => removeFromBasket(order._id)}
+          />
           <CardBody>
             <Container>
               <Row>
@@ -136,13 +176,6 @@ const MyBasket = () => {
                       onClick={() => incDecQuantity("increase", order._id)}
                     >
                       +
-                    </Button>
-                    <Button
-                      color="warning"
-                      size="sm"
-                      className="btn-round btn-block"
-                    >
-                      Remove
                     </Button>
                   </div>
                 </Col>
