@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import {
@@ -14,10 +14,12 @@ import {
 } from "reactstrap";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { TableContext } from "./TableContext";
 
 const Food = () => {
   let { foodId } = useParams();
   const [food, setFood] = useState({});
+  const { table } = useContext(TableContext);
 
   const getFoodDetails = async () => {
     try {
@@ -65,6 +67,7 @@ const Food = () => {
 
   useEffect(() => {
     getFoodDetails();
+    console.log("table isssss", table);
   }, []);
 
   return (
