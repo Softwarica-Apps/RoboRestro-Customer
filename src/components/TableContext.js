@@ -1,12 +1,10 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState } from 'react'
 
-export const TableContext = createContext();
+export const TableContext = createContext()
 
 const TableContextProvider = ({ children }) => {
-  const [table, setTable] = useState("");
-  return (
-    <TableContext.Provider value={{ table,setTable }}>{children}</TableContext.Provider>
-  );
-};
+	const [table, setTable] = useState('')
+	return <TableContext.Provider value={{ table, setTable }}>{children}</TableContext.Provider>
+}
 
-export default TableContextProvider;
+export default TableContextProvider

@@ -1,23 +1,23 @@
-import React from "react";
-import Navigation from "./partials/Navigation";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Cuisines from "./Cuisines/Cuisines";
-import CuisineMenu from "./Cuisines/CuisineMenu";
-import Food from "./Food";
-import MyBasket from "./MyBasket";
+import React from 'react'
+import Navigation from './partials/Navigation'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import Cuisines from './Cuisines/Cuisines'
+import CuisineMenu from './Cuisines/CuisineMenu'
+import Food from './Food'
+import MyBasket from './MyBasket'
 
 const Home = () => {
-  return (
-    <Router>
-      <Navigation />
-      <Switch>
-        <Route exact path="/" component={Cuisines} />
-        <Route exact path="/cuisines/:cuisine" component={CuisineMenu} />
-        <Route exact path="/foods/:foodId" component={Food} />
-        <Route exact path="/my-basket" component={MyBasket} />
-      </Switch>
-    </Router>
-  );
-};
+	return (
+		<Router>
+			<Navigation />
+			<Switch>
+				<Route exact path='/cuisines/' component={Cuisines} />
+				<Route exact path='/cuisines/:cuisine' component={CuisineMenu} />
+				<Route exact path='/foods/:foodId' component={Food} />
+				<Route exact path='/my-basket' component={MyBasket} />
+			</Switch>
+		</Router>
+	)
+}
 
-export default Home;
+export default Home

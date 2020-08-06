@@ -1,50 +1,46 @@
-import React, { useState, useEffect } from "react";
-import { Container, Row, Col } from "reactstrap";
-import axios from "axios";
+import React, { useState, useEffect } from 'react'
+import { Container, Row, Col } from 'reactstrap'
+import axios from 'axios'
 
 const Cuisines = ({ history }) => {
-  const [cuisines, setCuisines] = useState([]);
-  const getCuisines = async () => {
-    try {
-      let result = await axios.get(
-        `${process.env.REACT_APP_BASE_URI}/foodcategories`
-      );
-      setCuisines(result.data);
-    } catch (error) {
-      console.error("Cuisines Error: ", error);
-    }
-  };
+	const [cuisines, setCuisines] = useState([])
+	const getCuisines = async () => {
+		try {
+			let result = await axios.get(`${process.env.REACT_APP_BASE_URI}/foodcategories`)
+			setCuisines(result.data)
+		} catch (error) {
+			console.error('Cuisines Error: ', error)
+		}
+	}
 
-  useEffect(() => {
-    getCuisines();
-  }, []);
+	useEffect(() => {
+		getCuisines()
+	}, [])
 
-  const goToCuisineMenu = (cuisine) => {
-    history.push(`/cuisines/${cuisine}`);
-  };
+	const goToCuisineMenu = (cuisine) => {
+		history.push(`/cuisines/${cuisine}`)
+	}
 
-  return (
-    <Container className="cuisines-wrapper mt-5">
-      <Row>
-        <Col className="mx-auto">
-          <p className="title text-center">
-            What do you feel like eating today?
-          </p>
-          <div className="cuisines">
-            {cuisines.map((cuisine) => (
-              <img
-                alt={cuisine.food_category + " Cuisine"}
-                className="img-raised rounded-circle"
-                src={`${process.env.REACT_APP_BASE_URI}/${cuisine.food_category_imagename}`}
-                key={cuisine._id}
-                onClick={() => goToCuisineMenu(cuisine.food_category)}
-              ></img>
-            ))}
-          </div>
-        </Col>
-      </Row>
-    </Container>
-  );
-};
+	return (
+		<Container className='cuisines-wrapper mt-5'>
+			<Row>
+				<Col className='mx-auto'>
+					<p className='title text-center'>What do you feel like eating today?</p>
+					<div className='cuisines'>
+						{cuisines.map((cuisine) => (
+							<img
+								alt={cuisine.food_category + ' Cuisine'}
+								className='img-raised rounded-circle'
+								src={`${process.env.REACT_APP_BASE_URI}/${cuisine.food_category_imagename}`}
+								key={cuisine._id}
+								onClick={() => goToCuisineMenu(cuisine.food_category)}
+							></img>
+						))}
+					</div>
+				</Col>
+			</Row>
+		</Container>
+	)
+}
 
-export default Cuisines;
+export default Cuisines
