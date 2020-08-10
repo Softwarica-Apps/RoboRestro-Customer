@@ -15,7 +15,7 @@ const ScanQR = () => {
 	const handleScan = (data) => {
 		if (data) {
 			alert(data)
-			tables.includes(data) ? history.push('/cuisines/') : alert('QR code not recognized...')
+			tables.includes(data) ? history.push('/cuisines') : alert('QR code not recognized...')
 			setTable(data.substring(1))
 		}
 	}

@@ -17,7 +17,7 @@ const CuisineMenu = ({ history }) => {
 	}
 
 	const goToFoodDetails = (foodId) => {
-		history.replace(`/foods/${foodId}`)
+		history.push(`/foods/${foodId}`)
 	}
 
 	useEffect(() => {
